@@ -1,0 +1,20 @@
+services:
+  range_printer:
+    build: range_printer
+    networks:
+      - my_net
+    ports:
+      - "8000:8000"
+  change_detector:
+    build: change_detector
+    networks:
+      - my_net
+    ports:
+      - "8001:8001"
+    volumes:
+      - my_vol:/vol
+      
+volumes:
+  my_vol:
+networks:
+  my_net:

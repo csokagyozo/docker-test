@@ -18,19 +18,31 @@ see: https://docs.docker.com/storage/volumes/
 Update the index stored field in state.json or the last_processed field in log.json manually.
 
 ## how to run
+### without docker-compose
 with docker already installed:
 
 ``docker network create my_net``  
 ``docker volume create my_vol``  
+
+copying the files to the volume can be hacky. If you have access to the folder, you can do it like this:
 ``cp *.py /var/lib/docker/volumes/my_vol/_data/``  
 
-(evidently the path can be different)
+or you can use the docker api:
+``docker run -v my_vol:/vol --name helper busybox true``  
+``docker cp state.json helper:/vol``  
+``docker cp log.json helper:/vol``  
+``docker rm helper``  
+
 then run paralelly in two terminal windows:
 
 ``cd range_printer``  
 ``sudo docker image build . -t docker_network_test_2``  
-``sudo docker run --rm --network my_net --name consumer docker_network_test_2``  
+``sudo docker run --rm --network my_net --name docker-test_range_printer_1 docker_network_test_2``  
 
 ``cd change_detector``  
 ``sudo docker image build . -t docker_network_test``  
 ``sudo docker run --mount source=my_vol,target=/vol --network my_net docker_network_test``  
+
+### with docker-compose
+``docker-compose build``  
+``docker-compose up``  

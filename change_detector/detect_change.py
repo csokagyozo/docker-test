@@ -5,8 +5,8 @@ import socket
 
 SLICE_SIZE = 15
 
-HOST = 'consumer'
-PORT = 80
+HOST = 'docker-test_range_printer_1'
+PORT = 8000
 
 STATE_FILENAME = '/vol/state.json'
 LOG_FILENAME = '/vol/log.json'
@@ -54,12 +54,12 @@ def read_state():
 def process(last_processed, process_until):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        json_string = json.dumps({'last_processed':last_processed,'state_index':process_until})
+        json_string = json.dumps({'from':last_processed,'to':process_until})
         s.send(str.encode(json_string))
         raw_msg = s.recv(1024).decode('utf-8')
         data = json.loads(raw_msg)
         if data['status'] == 'success':
-            print(f'Succesfully processed, new log index: {data["data"]["state_index"]}', flush=True)
+            print(f'Succesfully processed, new log index: {data["data"]["to"]}', flush=True)
             return True
         else:
             print('Error while processing', flush=True)
@@ -67,5 +67,6 @@ def process(last_processed, process_until):
 
 
 while True:
-    check()
     time.sleep(10)
+    check()
+
