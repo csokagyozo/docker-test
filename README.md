@@ -18,8 +18,9 @@ see: https://docs.docker.com/storage/volumes/
 Update the index stored field in state.json or the last_processed field in log.json manually.
 
 ## how to run
-### without docker-compose
-with docker already installed:
+If not interested in the details, just run ``docker_build_run.sh``  
+
+Otherwise, starting with docker already installed:
 
 ``docker network create my_net``  
 ``docker volume create my_vol``  
@@ -33,15 +34,16 @@ or you can use the docker api:
 ``docker cp log.json helper:/vol``  
 ``docker rm helper``  
 
+### without docker-compose
 then run paralelly in two terminal windows:
 
 ``cd range_printer``  
-``sudo docker image build . -t docker_network_test_2``  
-``sudo docker run --rm --network my_net --name docker-test_range_printer_1 docker_network_test_2``  
+``docker image build . -t docker_network_test_2``  
+``docker run --rm --network my_net --name docker-test_range_printer_1 docker_network_test_2``  
 
 ``cd change_detector``  
-``sudo docker image build . -t docker_network_test``  
-``sudo docker run --mount source=my_vol,target=/vol --network my_net docker_network_test``  
+``docker image build . -t docker_network_test``  
+``docker run --mount source=my_vol,target=/vol --network my_net docker_network_test``  
 
 ### with docker-compose
 ``docker-compose build``  
