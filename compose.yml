@@ -1,12 +1,14 @@
 services:
   range_printer:
     build: range_printer
+    image: csokagyozo/docker-test-range-printer
     networks:
       - my_net
     ports:
       - "8000:8000"
   change_detector:
     build: change_detector
+    image: csokagyozo/docker-test-change-detector
     networks:
       - my_net
     ports:

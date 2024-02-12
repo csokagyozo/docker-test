@@ -1,7 +1,7 @@
 import socket
 import json
 
-HOST = 'docker-test_range_printer_1'
+HOST = 'range_printer'
 PORT = 8000
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

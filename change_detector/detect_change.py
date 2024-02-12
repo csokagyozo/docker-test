@@ -5,7 +5,7 @@ import socket
 
 SLICE_SIZE = 15
 
-HOST = 'docker-test_range_printer_1'
+HOST = 'range_printer'
 PORT = 8000
 
 STATE_FILENAME = '/vol/state.json'
