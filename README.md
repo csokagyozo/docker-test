@@ -19,6 +19,12 @@ Update the index stored field in state.json or the last_processed field in log.j
 
 ## how to run
 
+``docker volume create docker-test_my_vol``  
+``docker run -v docker-test_my_vol:/vol --name helper busybox true``  
+``docker cp change_detector/state.json helper:/vol``  
+``docker cp change_detector/log.json helper:/vol``  
+``docker rm helper``  
+
 ### without docker-compose
 
 ``docker network create my_net``  
