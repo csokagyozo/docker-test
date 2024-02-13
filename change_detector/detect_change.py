@@ -8,8 +8,8 @@ SLICE_SIZE = 15
 HOST = 'range_printer'
 PORT = 8000
 
-STATE_FILENAME = '/vol/state.json'
-LOG_FILENAME = '/vol/log.json'
+STATE_FILENAME = '/state.json'
+LOG_FILENAME = '/log.json'
 
 def check():
     state_index = read_state()
